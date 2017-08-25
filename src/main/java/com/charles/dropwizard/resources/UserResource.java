@@ -11,7 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-@Path(value = "person")
+@Path(value = "user")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
     private UserDao UserDao;
@@ -23,7 +23,21 @@ public class UserResource {
     @GET
     @Timed
     @UnitOfWork
-    public User sayHello(@QueryParam("id") Long id) {
+    @Path("findOne")
+    public User findOne(@QueryParam("id") Long id) {
+        // curl http://localhost:8080/user/findOne
         return UserDao.findById(id);
     }
-}  
+
+    @GET
+    @Timed
+    @UnitOfWork
+    @Path("create")
+    public Integer create(@QueryParam("name") String name,
+                          @QueryParam("age") Integer age,
+                          @QueryParam("email") String email,
+                          @QueryParam("password") String password) {
+        // curl http://localhost:8080/user/create?name=Lily&age=23&email=23123213@qq.com&password=123456
+        return UserDao.create(new User(name, age, email, password));
+    }
+}

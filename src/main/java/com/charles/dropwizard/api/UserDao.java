@@ -19,7 +19,7 @@ public class UserDao extends AbstractDAO<User> {
         return get(id);
     }
 
-    public long create(User person) {
+    public int create(User person) {
         return persist(person).getId();
     }
 
