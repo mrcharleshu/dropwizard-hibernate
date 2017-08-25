@@ -1,0 +1,59 @@
+template: OK
+
+# Database settings.
+database:
+  driverClass: net.sf.log4jdbc.DriverSpy
+  user: root
+  password: 123
+  url: jdbc:log4jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+  properties:
+    hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+    hibernate.hbm2ddl.auto: update
+    hibernate.format_sql: true
+    hibernate.showSql: true
+
+# Logging settings.
+logging:
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+  appenders:
+    # Log warnings and errors to stderr
+    - type: console
+      threshold: INFO
+      target: stderr
+
+    # Log info, warnings and errors to our apps' main log.
+    # Rolled over daily and retained for 5 days.
+    - type: file
+      threshold: INFO
+      currentLogFilename: ./logs/example.log
+      archivedLogFilenamePattern: ./logs/example-%d.log.gz
+      archivedFileCount: 5
+
+    # Log debug messages, info, warnings and errors to our apps' debug log.
+    # Rolled over hourly and retained for 6 hours
+    - type: file
+      threshold: DEBUG
+      currentLogFilename: ./logs/debug.log
+      archivedLogFilenamePattern: ./logs/debug-%d{yyyy-MM-dd-hh}.log.gz
+      archivedFileCount: 6
+  # Logger-specific levels.
+  loggers:
+    com.example.helloworld: DEBUG
+    org.hibernate.engine: WARN
+    jdbc.sqlonly: WARN
+    jdbc.sqltiming: INFO
+    jdbc.audit: WARN
+    jdbc.resultset: WARN
+    jdbc.resultsettable: WARN
+    jdbc.connection: WARN
+    # Enables the SQL query log and redirect it to a separate file
+    org.hibernate.SQL:
+      level: DEBUG
+      # This line stops org.hibernate.SQL (or anything under it) from using the root logger
+      additive: false
+      appenders:
+        - type: file
+          currentLogFilename: ./logs/example-sql.log
+          archivedLogFilenamePattern: ./logs/example-sql-%d.log.gz
+          archivedFileCount: 5
