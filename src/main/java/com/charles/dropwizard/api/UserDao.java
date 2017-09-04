@@ -10,12 +10,11 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 
 public class UserDao extends AbstractDAO<User> {
-
     public UserDao(SessionFactory factory) {
         super(factory);
     }
 
-    public User findById(Long id) {
+    public User findById(Integer id) {
         return get(id);
     }
 

@@ -18,9 +18,14 @@ logging:
   level: INFO
   appenders:
     # Log warnings and errors to stderr
+    # - type: console
+    #  threshold: INFO
+    #  target: stderr
     - type: console
-      threshold: INFO
-      target: stderr
+      threshold: ALL
+      timeZone: UTC
+      target: stdout
+      logFormat: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{15} - %msg%n"
 
     # Log info, warnings and errors to our apps' main log.
     # Rolled over daily and retained for 5 days.

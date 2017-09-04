@@ -24,8 +24,8 @@ public class UserResource {
     @Timed
     @UnitOfWork
     @Path("findOne")
-    public User findOne(@QueryParam("id") Long id) {
-        // curl http://localhost:8080/user/findOne
+    public User findOne(@QueryParam("id") Integer id) {
+        // curl http://localhost:8080/user/findOne?id=1
         return UserDao.findById(id);
     }
 
@@ -34,9 +34,9 @@ public class UserResource {
     @UnitOfWork
     @Path("create")
     public Integer create(@QueryParam("name") String name,
-                          @QueryParam("age") Integer age,
-                          @QueryParam("email") String email,
-                          @QueryParam("password") String password) {
+            @QueryParam("age") Integer age,
+            @QueryParam("email") String email,
+            @QueryParam("password") String password) {
         // curl http://localhost:8080/user/create?name=Lily&age=23&email=23123213@qq.com&password=123456
         return UserDao.create(new User(name, age, email, password));
     }

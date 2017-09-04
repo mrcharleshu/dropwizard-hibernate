@@ -22,6 +22,9 @@ public class User {
     @Column
     private String password;
 
+    public User() {
+    }
+
     public User(final String name, final int age, final String email, final String password) {
         this.name = name;
         this.age = age;
